@@ -8,7 +8,6 @@ import (
 
 func run(source string) {
 	scanner := CreateScanner(source)
-	fmt.Println("scanner is", scanner)
 	tokens := scanner.ScanTokens()
 
 	for _, token := range tokens {

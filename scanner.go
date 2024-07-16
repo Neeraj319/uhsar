@@ -39,7 +39,7 @@ func CreateScanner(source string) *Scanner {
 }
 
 func (s *Scanner) isAtEnd() bool {
-	return s.line >= len(s.source)
+	return s.current >= len(s.source)
 }
 
 func (s *Scanner) scanToken() {
@@ -209,16 +209,9 @@ func (s *Scanner) match(expected rune) bool {
 }
 
 func (s *Scanner) advance() rune {
-	// if s.current >= len(s.source) {
-	// 	return 0
-	// }
-	// char := rune(s.source[s.current])
-	// s.current++
-	// return char
 	char := s.source[s.current]
 	s.current++
 	return rune(char)
-
 }
 
 func (s *Scanner) addToken(tokenType TokenType) {
