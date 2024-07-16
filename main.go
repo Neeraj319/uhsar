@@ -6,26 +6,10 @@ import (
 	"os"
 )
 
-type Scanner struct {
-	Source string
-}
-
-func (s *Scanner) scanTokens() {
-
-}
-
-func error(line int, where string, message string) {
-	report(line, where, message)
-
-}
-func report(line int, where string, message string) {
-	error_string := fmt.Errorf("line %d Error %s : %s ", line, where, message)
-	fmt.Println(error_string)
-
-}
 func run(source string) {
-	scanner := Scanner{source}
-	tokens := scanner.scanTokens()
+	scanner := CreateScanner(source)
+	fmt.Println("scanner is", scanner)
+	tokens := scanner.ScanTokens()
 
 	for _, token := range tokens {
 		fmt.Println("token", token)
@@ -68,7 +52,6 @@ func main() {
 		runThroughFile(args[1])
 	} else if len(args) == 1 {
 		runThroughInput()
-
 	}
 
 }
