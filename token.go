@@ -67,3 +67,8 @@ func (t *Token) ToString() string {
 	return_string := fmt.Sprintf("%s %s %v", t.Type, t.Lexeme, t.Literal)
 	return return_string
 }
+
+func CreateToken(tokenType TokenType, lexeme string, literal interface{}, line int) *Token {
+	return &Token{Type: tokenType, Lexeme: lexeme, Literal: literal, Line: line}
+
+}

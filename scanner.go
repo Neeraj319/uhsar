@@ -127,7 +127,6 @@ func (s *Scanner) scanToken() {
 			s.addNumber()
 		} else if IsAlpha(character) {
 			s.addIdentifier()
-
 		} else {
 			fmt.Println("The current values are", s.start, s.current)
 			error_string := fmt.Sprintf("Unexpected character %v", character)
