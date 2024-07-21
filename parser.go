@@ -1,5 +1,9 @@
 package main
 
+// import (
+// 	"fmt"
+// )
+
 type Parser struct {
 	Tokens  []Token
 	Current int
@@ -9,7 +13,7 @@ func CreateParser(tokens []Token) *Parser {
 	return &Parser{Tokens: tokens, Current: 0}
 }
 
-func (p *Parser) parse() Expr {
+func (p *Parser) Parse() Expr {
 	return p.experssion()
 }
 

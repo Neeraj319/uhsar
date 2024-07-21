@@ -83,6 +83,7 @@ func (s *Scanner) scanToken() {
 		} else {
 			s.addToken(BANG)
 		}
+		break
 	case '=':
 		token := s.match('=')
 		if token {
@@ -90,6 +91,7 @@ func (s *Scanner) scanToken() {
 		} else {
 			s.addToken(EQUAL)
 		}
+		break
 	case '<':
 		token := s.match('=')
 		if token {
@@ -97,6 +99,7 @@ func (s *Scanner) scanToken() {
 		} else {
 			s.addToken(LESS)
 		}
+		break
 	case '>':
 		token := s.match('=')
 		if token {
@@ -104,6 +107,7 @@ func (s *Scanner) scanToken() {
 		} else {
 			s.addToken(GREATER)
 		}
+		break
 	case ' ':
 	case '\r':
 	case '\t':
@@ -119,6 +123,7 @@ func (s *Scanner) scanToken() {
 		} else {
 			s.addToken(SLASH)
 		}
+		break
 	case '"':
 		s.addString()
 		break
@@ -149,6 +154,7 @@ func (s *Scanner) addIdentifier() {
 }
 
 func (s *Scanner) addNumber() {
+	from := s.current - 1
 	for IsDigit(s.peek()) {
 		s.advance()
 	}
@@ -158,7 +164,9 @@ func (s *Scanner) addNumber() {
 	for IsDigit(s.peek()) {
 		s.advance()
 	}
-	value, _ := strconv.ParseFloat(s.source[s.start:s.current], 64)
+	to := s.current
+	floatValue := s.source[from:to]
+	value, _ := strconv.ParseFloat(floatValue, 64)
 	s.addTokenWithLiteral(NUMBER, value)
 }
 
