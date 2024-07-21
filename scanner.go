@@ -133,7 +133,7 @@ func (s *Scanner) scanToken() {
 		} else if IsAlpha(character) {
 			s.addIdentifier()
 		} else {
-			error_string := fmt.Sprintf("Unexpected character %v", character)
+			error_string := fmt.Sprintf("Unexpected character %c", character)
 			panic(Error(s.line, error_string))
 		}
 	}
@@ -178,6 +178,7 @@ func (s *Scanner) peekNext() rune {
 }
 
 func (s *Scanner) addString() {
+	from := s.current
 	for s.peek() != '"' && !s.isAtEnd() {
 		if s.peek() == '\n' {
 			s.line++
@@ -187,8 +188,9 @@ func (s *Scanner) addString() {
 	if s.isAtEnd() {
 		panic(Error(s.line, "Un-terminated string"))
 	}
+	to := s.current
 	s.advance()
-	value := s.source[s.start+1 : s.current-1]
+	value := s.source[from:to]
 	s.addTokenWithLiteral(STRING, value)
 }
 
