@@ -128,10 +128,8 @@ func (s *Scanner) scanToken() {
 		} else if IsAlpha(character) {
 			s.addIdentifier()
 		} else {
-			fmt.Println("The current values are", s.start, s.current)
 			error_string := fmt.Sprintf("Unexpected character %v", character)
-			Error(s.line, error_string)
-			break
+			panic(Error(s.line, error_string))
 		}
 	}
 
@@ -179,8 +177,7 @@ func (s *Scanner) addString() {
 		s.advance()
 	}
 	if s.isAtEnd() {
-		Error(s.line, "Un-terminated string")
-		return
+		panic(Error(s.line, "Un-terminated string"))
 	}
 	s.advance()
 	value := s.source[s.start+1 : s.current-1]

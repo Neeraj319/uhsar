@@ -2,14 +2,13 @@ package main
 
 import "fmt"
 
-func Error(line int, message string) {
-	report(line, "", message)
+func Error(line int, message string) error {
+	return report(line, "", message)
 
 }
-func report(line int, where string, message string) {
+func report(line int, where string, message string) error {
 	error_string := fmt.Errorf("line %d Error %s : %s ", line, where, message)
-	fmt.Println(error_string)
-
+	return (error_string)
 }
 
 func IsDigit(c rune) bool {
@@ -25,4 +24,12 @@ func IsAlpha(c rune) bool {
 func IsAlphaNumeric(c rune) bool {
 	return IsAlpha(c) || IsDigit(c)
 
+}
+
+func ParsingError(token Token, message string) error {
+	if token.Type == EOF {
+		return report(token.Line, " at end", message)
+	} else {
+		return report(token.Line, " at '"+token.Lexeme+"'", message)
+	}
 }

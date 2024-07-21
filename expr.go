@@ -33,12 +33,15 @@ type Unary struct {
 func CreateBinary(left Expr, operator Token, right Expr) *Binary {
 	return &Binary{Left: left, Operator: operator, Right: right}
 }
+
 func CreateGrouping(expression Expr) *Grouping {
 	return &Grouping{Expression: expression}
 }
+
 func CreateLiteral(value interface{}) *Literal {
 	return &Literal{Value: value}
 }
+
 func CreateUnary(operator Token, right Expr) *Unary {
 	return &Unary{Operator: operator, Right: right}
 }
@@ -58,3 +61,4 @@ func (l *Literal) Accept(visitor VisitorInterface) interface{} {
 func (u *Unary) Accept(visitor VisitorInterface) interface{} {
 	return visitor.VisitUnaryExpr(u)
 }
+

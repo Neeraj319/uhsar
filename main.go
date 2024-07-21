@@ -9,11 +9,9 @@ import (
 func run(source string) {
 	scanner := CreateScanner(source)
 	tokens := scanner.ScanTokens()
-
-	for _, token := range tokens {
-		fmt.Println("token", token)
-	}
-
+	parser := CreateParser(tokens)
+	expression := parser.parse()
+	fmt.Println(AstPrint(expression))
 }
 
 func readFile(fileName string) (string, error) {
