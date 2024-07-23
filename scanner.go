@@ -171,7 +171,7 @@ func (s *Scanner) addIdentifier() {
 	text := s.source[from:to]
 	tokenType := KEYWORDS[text]
 	if tokenType == "" {
-		s.addToken(IDENTIFIER)
+		s.addTokenWithLiteral(IDENTIFIER, text, nil)
 	} else {
 		s.addTokenWithLiteral(tokenType, text, nil)
 	}
