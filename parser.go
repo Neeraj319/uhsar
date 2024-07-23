@@ -1,9 +1,5 @@
 package main
 
-// import (
-// 	"fmt"
-// )
-
 type Parser struct {
 	Tokens  []Token
 	Current int

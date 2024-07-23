@@ -32,6 +32,28 @@ var KEYWORDS = map[string]TokenType{
 	"while":  WHILE,
 }
 
+var LEXEME_MAP = map[TokenType]string{
+	LEFT_PAREN:    "(",
+	RIGHT_PAREN:   ")",
+	LEFT_BRACE:    "{",
+	RIGHT_BRRACE:  "}",
+	COMMA:         ",",
+	DOT:           ".",
+	MINUS:         "-",
+	PLUS:          "+",
+	SEMICOLON:     ";",
+	SLASH:         "/",
+	STAR:          "*",
+	BANG:          "!",
+	BANG_EQUAL:    "!=",
+	EQUAL:         "=",
+	EQUAL_EQUAL:   "==",
+	GREATER:       ">",
+	GREATER_EQUAL: ">=",
+	LESS:          "<",
+	LESS_EQUAL:    "<=",
+}
+
 func CreateScanner(source string) *Scanner {
 	var tokens []Token
 	return &Scanner{source: source, tokens: tokens}
@@ -141,10 +163,12 @@ func (s *Scanner) scanToken() {
 }
 
 func (s *Scanner) addIdentifier() {
+	from := s.current - 1
 	for IsAlphaNumeric(s.peek()) {
 		s.advance()
 	}
-	text := s.source[s.start:s.current]
+	to := s.current
+	text := s.source[from:to]
 	tokenType := KEYWORDS[text]
 	if tokenType == "" {
 		s.addToken(IDENTIFIER)
@@ -165,9 +189,9 @@ func (s *Scanner) addNumber() {
 		s.advance()
 	}
 	to := s.current
-	floatValue := s.source[from:to]
-	value, _ := strconv.ParseFloat(floatValue, 64)
-	s.addTokenWithLiteral(NUMBER, value)
+	lexme := s.source[from:to]
+	value, _ := strconv.ParseFloat(lexme, 64)
+	s.addTokenWithLiteral(NUMBER, lexme, value)
 }
 
 func (s *Scanner) peekNext() rune {
@@ -191,7 +215,7 @@ func (s *Scanner) addString() {
 	to := s.current
 	s.advance()
 	value := s.source[from:to]
-	s.addTokenWithLiteral(STRING, value)
+	s.addTokenWithLiteral(STRING, value, value)
 }
 
 func (s *Scanner) peek() rune {
@@ -221,14 +245,13 @@ func (s *Scanner) advance() rune {
 }
 
 func (s *Scanner) addToken(tokenType TokenType) {
-	text := s.source[s.start:s.current]
+	text := LEXEME_MAP[tokenType]
 	s.tokens = append(s.tokens, Token{Type: tokenType, Lexeme: text, Literal: nil, Line: s.line})
 
 }
 
-func (s *Scanner) addTokenWithLiteral(tokenType TokenType, literal interface{}) {
-	text := s.source[s.start:s.current]
-	s.tokens = append(s.tokens, Token{Type: tokenType, Lexeme: text, Literal: literal, Line: s.line})
+func (s *Scanner) addTokenWithLiteral(tokenType TokenType, lexeme string, literal interface{}) {
+	s.tokens = append(s.tokens, Token{Type: tokenType, Lexeme: lexeme, Literal: literal, Line: s.line})
 }
 
 func (s *Scanner) ScanTokens() []Token {
