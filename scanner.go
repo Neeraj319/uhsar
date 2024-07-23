@@ -173,7 +173,7 @@ func (s *Scanner) addIdentifier() {
 	if tokenType == "" {
 		s.addToken(IDENTIFIER)
 	} else {
-		s.addToken(tokenType)
+		s.addTokenWithLiteral(tokenType, text, nil)
 	}
 }
 
