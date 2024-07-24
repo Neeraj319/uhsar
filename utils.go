@@ -33,3 +33,19 @@ func ParsingError(token Token, message string) error {
 		return report(token.Line, " at '"+token.Lexeme+"'", message)
 	}
 }
+
+func IsTruthy(object interface{}) bool {
+	if object == nil {
+		return false
+	}
+	value, ok := object.(bool)
+	if !(ok) {
+		return true
+	}
+	return value
+}
+
+func IsEqual(a interface{}, b interface{}) bool {
+	return a == b
+
+}

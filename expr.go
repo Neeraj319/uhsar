@@ -61,4 +61,3 @@ func (l *Literal) Accept(visitor VisitorInterface) interface{} {
 func (u *Unary) Accept(visitor VisitorInterface) interface{} {
 	return visitor.VisitUnaryExpr(u)
 }
-
