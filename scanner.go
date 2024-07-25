@@ -30,6 +30,7 @@ var KEYWORDS = map[string]TokenType{
 	"true":   TRUE,
 	"var":    VAR,
 	"while":  WHILE,
+	"rashu":  RASHU,
 }
 
 var LEXEME_MAP = map[TokenType]string{

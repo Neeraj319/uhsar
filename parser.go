@@ -78,6 +78,9 @@ func (p *Parser) primary() Expr {
 	if p.match(NUMBER, STRING) {
 		return CreateLiteral(p.previous().Literal)
 	}
+	if p.match(RASHU) {
+		return CreateLiteral(RASHU)
+	}
 	if p.match(LEFT_PAREN) {
 		expr := p.experssion()
 		p.consume(RIGHT_PAREN, "Expect ')' after expression.")

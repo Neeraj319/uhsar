@@ -5,6 +5,7 @@ type VisitorInterface interface {
 	VisitGroupingExpr(expr *Grouping) interface{}
 	VisitLiteralExpr(expr *Literal) interface{}
 	VisitUnaryExpr(expr *Unary) interface{}
+	VisitRashuExpr(expr *RashuExpr) interface{}
 }
 
 type Expr interface {
@@ -28,6 +29,13 @@ type Literal struct {
 type Unary struct {
 	Operator Token
 	Right    Expr
+}
+
+type RashuExpr struct {
+}
+
+func CreateRashuExpr() *RashuExpr {
+	return &RashuExpr{}
 }
 
 func CreateBinary(left Expr, operator Token, right Expr) *Binary {
@@ -60,4 +68,8 @@ func (l *Literal) Accept(visitor VisitorInterface) interface{} {
 
 func (u *Unary) Accept(visitor VisitorInterface) interface{} {
 	return visitor.VisitUnaryExpr(u)
+}
+
+func (r *RashuExpr) Accept(visitor VisitorInterface) interface{} {
+	return visitor.VisitRashuExpr(r)
 }
