@@ -36,3 +36,7 @@ func (ap *AstPrinter) VisitLiteralExpr(literalExpr *Literal) interface{} {
 	}
 	return fmt.Sprintf("%v", literalExpr.Value)
 }
+
+func (ap *AstPrinter) VisitRashuExpr(rashuExpr *RashuExpr) interface{} {
+	return ""
+}

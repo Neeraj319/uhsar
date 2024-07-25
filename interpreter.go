@@ -71,3 +71,7 @@ func Interpret(expr Expr) interface{} {
 	interpreter := Interpreter{}
 	return interpreter.evaluate(expr)
 }
+
+func (ap *Interpreter) VisitRashuExpr(rashuExpr *RashuExpr) interface{} {
+	return ""
+}
