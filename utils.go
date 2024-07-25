@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"os"
+)
 
 func Error(line int, message string) error {
 	return report(line, "", message)
@@ -48,4 +51,13 @@ func IsTruthy(object interface{}) bool {
 func IsEqual(a interface{}, b interface{}) bool {
 	return a == b
 
+}
+
+func ReadFile(fileName string) (string, error) {
+	data, err := os.ReadFile(fileName)
+	if err != nil {
+		error_string := fmt.Sprintf("Error reading file %s", fileName)
+		return "", fmt.Errorf(error_string)
+	}
+	return string(data), nil
 }

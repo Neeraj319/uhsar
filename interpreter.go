@@ -1,5 +1,10 @@
 package main
 
+import (
+	"fmt"
+	"math/rand"
+)
+
 type Interpreter struct{}
 
 func (i *Interpreter) VisitLiteralExpr(literalExpr *Literal) interface{} {
@@ -9,6 +14,13 @@ func (i *Interpreter) VisitLiteralExpr(literalExpr *Literal) interface{} {
 func (i *Interpreter) VisitGroupingExpr(groupingExpr *Grouping) interface{} {
 	return i.evaluate(groupingExpr.Expression)
 
+}
+
+func (ap *Interpreter) VisitRashuExpr(rashuExpr *RashuExpr) interface{} {
+	randomNumber := rand.Intn(2) + 1
+	data, _ := ReadFile("ascii/" + fmt.Sprint(randomNumber))
+	returnValue := fmt.Sprintf("Zoom out to see the output\n %s %s", data, "\nZoom out to see the output")
+	return returnValue
 }
 
 func (i *Interpreter) VisitUnaryExpr(unaryExpr *Unary) interface{} {
@@ -70,8 +82,4 @@ func (i *Interpreter) evaluate(expr Expr) interface{} {
 func Interpret(expr Expr) interface{} {
 	interpreter := Interpreter{}
 	return interpreter.evaluate(expr)
-}
-
-func (ap *Interpreter) VisitRashuExpr(rashuExpr *RashuExpr) interface{} {
-	return ""
 }

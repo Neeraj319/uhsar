@@ -79,7 +79,7 @@ func (p *Parser) primary() Expr {
 		return CreateLiteral(p.previous().Literal)
 	}
 	if p.match(RASHU) {
-		return CreateLiteral(RASHU)
+		return CreateRashuExpr()
 	}
 	if p.match(LEFT_PAREN) {
 		expr := p.experssion()

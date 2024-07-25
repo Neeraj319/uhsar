@@ -12,20 +12,10 @@ func run(source string) {
 	parser := CreateParser(tokens)
 	expression := parser.Parse()
 	fmt.Println(Interpret(expression))
-
-}
-
-func readFile(fileName string) (string, error) {
-	data, err := os.ReadFile(fileName)
-	if err != nil {
-		error_string := fmt.Sprintf("Error reading file %s", fileName)
-		return "", fmt.Errorf(error_string)
-	}
-	return string(data), nil
 }
 
 func runThroughFile(fileName string) {
-	data, error := readFile(fileName)
+	data, error := ReadFile(fileName)
 	if error != nil {
 		fmt.Println(error)
 		return
@@ -51,5 +41,4 @@ func main() {
 	} else if len(args) == 1 {
 		runThroughInput()
 	}
-
 }
